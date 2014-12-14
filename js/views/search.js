@@ -2,7 +2,8 @@ app.Views.Search = Backbone.View.extend({
   template: _.template($('#tpl-search').html()),
 
   events: {
-    'input [name=search]': 'onSearch'
+    'input [name=search]': 'onSearch',
+    'click [data-action=bootstrap]': 'onClickBootstrap'
   },
 
   initialize: function() {
@@ -51,5 +52,9 @@ app.Views.Search = Backbone.View.extend({
 
   onSearch: function(event) {
     this.renderSearch(event.target.value);
+  },
+
+  onClickBootstrap: function() {
+    app.bootstrap();
   }
 });

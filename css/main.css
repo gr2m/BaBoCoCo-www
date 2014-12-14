@@ -15,7 +15,8 @@ body.loading {
   width: 100px;
   overflow: hidden;
 }
-.schedule-container .talk-speaker {
+.schedule-container .talk-speaker,
+.schedule-container .party {
   margin-left: 100px;
 }
 
@@ -132,4 +133,17 @@ body.loading {
   position: absolute;
   top: 0;
   right: 0;
+}
+
+#update-notification {
+  position: fixed;
+  bottom: 40px;
+  right: 10px;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  #update-notification {
+    position: static;
+  }
 }

@@ -3,8 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BaBoCoCo!</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
     <link href="vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
   </head>
@@ -18,8 +22,15 @@
             <li class="favorites"><a href="#contacts/favorites"><i class="glyphicon glyphicon-star"></i> <span class="hidden-xs">Favorites</span></a></li>
             <li class="new"><a href="#contacts/new"><i class="glyphicon glyphicon-plus"></i> <span class="hidden-xs">Create Contact</span></a></li>
             <li class="schedule"><a href="#schedule"><i class="glyphicon glyphicon-time"></i> <span class="hidden-xs">Schedule</span></a></li>
-            <li class="logout"><a href="#logout"><i class="glyphicon glyphicon-off"></i> <span class="hidden-xs">Sign out</span></a></li>
+            <li class="account">
+              <a href="#account"><i class="glyphicon glyphicon-user"></i> <span class="hidden-xs">Account</span></a>
+            </li>
           </ul>
+
+          <div id="update-notification" class="well" style="display: none;">
+            The app has been updated!<br>
+            <a href="/" class="btn btn-primary"><i class="glyphicon glyphicon-refresh"></i> reload now</a>
+          </div>
         </div>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -35,6 +46,13 @@
       </p>
       <hr>
       <ul class="contacts-container list-unstyled"></ul>
+      <hr>
+      <p>
+        <button class="btn btn-default" data-action="bootstrap">
+          <i class="glyphicon glyphicon-save"></i>
+          Add all speakers
+        </button>
+      </p>
     </script>
 
     <script type="text/template" id="tpl-favorites">
@@ -447,29 +465,39 @@
         </div>
       </div>
     </script>
-    <script type="text/template" id="tpl-login">
-      <div class="form">
-        <form role="form" class="form-horizontal login-form col-sm-8 col-sm-offset-2">
-          <h2 class="page-header text-center">Ba<small>ack</small>Bo<small>on</small>Co<small>nference</small>Co<small>ntacts</small>!</h2>
-          <div class="form-group">
-            <label class="col-sm-4 control-label">Username:</label>
-            <div class="col-sm-6">
-              <input type="text" class="form-control" name="username" value="test">
+    <script type="text/template" id="tpl-account">
+      <% if (username) { %>
+        <h2 class="page-title">Ohaj, <%- username %></h2>
+        <p>
+          <button class="btn btn-primary">sign out</button>
+        </p>
+      <% } else { %>
+        <div class="form">
+          <form role="form" class="form-horizontal login-form col-sm-8 col-sm-offset-2">
+            <h2 class="page-header text-center">Ba<small>ack</small>Bo<small>on</small>Co<small>nference</small>Co<small>ntacts</small>!</h2>
+            <div class="alert alert-danger" style="display:none;"></div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label">Username:</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" name="username" value="">
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-4 control-label">Email address:</label>
-            <div class="col-sm-6">
-              <input type="password" class="form-control" name="password" value="test">
+            <div class="form-group">
+              <label class="col-sm-4 control-label">Password:</label>
+              <div class="col-sm-6">
+                <input type="password" class="form-control" name="password" value="">
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-offset-4 col-sm-3">
-              <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+            <div class="form-group">
+              <div class="col-sm-offset-4 col-sm-6">
+                <p><button type="submit" class="btn btn-primary btn-block" onclick="this.form.action='signin'">Sign in</button></p>
+                <p><button type="submit" class="btn btn-default btn-block" onclick="this.form.action='signup'">Sign up</button></p>
+                <p><a href="#contacts/search" class="btn btn-default btn-block" data-action="useApp">Use without account</a></p>
+              </div>
             </div>
-          </div>
-        </form>
-      </div>
+          </form>
+        </div>
+      <% } %>
     </script>
 
     <script src="vendor/jquery/jquery.js"></script>
@@ -487,9 +515,8 @@
     <script src="js/views/detail.js"></script>
     <script src="js/views/contactForm.js"></script>
     <script src="js/views/schedule.js"></script>
-    <script src="js/views/loginForm.js"></script>
+    <script src="js/views/account.js"></script>
     <script src="js/router.js"></script>
-    <script src="js/bootstrap_contacts.js"></script>
 
     <script>
       $(app.start);

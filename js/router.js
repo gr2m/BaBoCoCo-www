@@ -8,7 +8,7 @@ app.Router = Backbone.Router.extend({
     'contacts/:id': 'showContact',
     'contacts/edit/:id': 'editContact',
     'schedule': 'showSchedule',
-    'login': 'showLogin',
+    'account': 'showAccount',
     'logout': 'logout'
   }
 });
