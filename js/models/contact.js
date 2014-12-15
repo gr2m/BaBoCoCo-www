@@ -1,5 +1,6 @@
 app.Models.Contact = hoodie.backbone.Model.extend({
   defaults: {
+    id: null,
     name: '',
     email: '',
     twitter: '',
