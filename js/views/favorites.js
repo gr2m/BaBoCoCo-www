@@ -2,7 +2,7 @@ app.Views.Favorites = Backbone.View.extend({
   template: _.template($('#tpl-favorites').html()),
 
   initialize: function() {
-    this.listenTo(this.collection, 'sync change', this.render);
+    this.listenTo(this.collection, 'sync add change remove reset', this.render);
   },
 
   renderOne: function(contact) {

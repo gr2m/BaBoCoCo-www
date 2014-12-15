@@ -3,7 +3,8 @@ app.Views.Account = Backbone.View.extend({
 
   events: {
     'submit .login-form': 'onFormSubmit',
-    'click [data-action=useApp]': 'onClickUseApp'
+    'click [data-action=useApp]': 'onClickUseApp',
+    'click [data-action=signout]': 'onClickSignOut'
   },
 
   initialize: function() {
@@ -12,16 +13,7 @@ app.Views.Account = Backbone.View.extend({
 
   render: function() {
     this.$el.html(this.template(hoodie.account));
-    this.show();
     return this;
-  },
-
-  show: function() {
-    $('.login-container').addClass('show');
-  },
-
-  hide: function() {
-    $('.login-container').removeClass('show');
   },
 
   onFormSubmit: function(event) {
@@ -32,14 +24,12 @@ app.Views.Account = Backbone.View.extend({
     event.preventDefault();
     this.$('.alert').hide();
 
-    hoodie.account[action](username, password)
+    hoodie.account[action](username, password, {moveData: true})
     .then(this.handleSuccess, this.handleError);
   },
 
-  handleSuccess: function(response) {
-    this.hide();
-    response = JSON.parse(response);
-    this.trigger('login:success', response.name);
+  handleSuccess: function(username) {
+    this.trigger('login:success', username);
   },
 
 
@@ -49,7 +39,14 @@ app.Views.Account = Backbone.View.extend({
 
   onClickUseApp: function(event) {
     event.preventDefault();
-    this.hide();
     app.router.navigate('contacts/search', true);
+  },
+
+  onClickSignOut: function(event) {
+    var view = this;
+    hoodie.account.signOut()
+    .then(function() {
+      view.trigger('signout:success')
+    });
   }
 });

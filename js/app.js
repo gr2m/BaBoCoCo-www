@@ -129,11 +129,19 @@ window.app = {
       if (app.currentView) app.currentView.remove();
       app.currentView = new app.Views.Account();
 
-      $('.login-container').html(app.currentView.render().$el);
+      $('.main-container').html(app.currentView.render().$el);
+
+
+      $('.sidebar .active').removeClass('active');
+      $('.sidebar .nav .account').addClass('active');
 
       app.currentView.on('login:success', function(username) {
         app.currentUser = username;
         app.contacts.fetch();
+        app.router.navigate('contacts/search', true);
+      });
+      app.currentView.on('signout:success', function(username) {
+        app.currentUser = undefined;
         app.router.navigate('contacts/search', true);
       });
     });
@@ -148,10 +156,7 @@ window.app = {
     app.contacts.fetch();
 
     // save all assets offline and check for updates
-    hoodie.appCache.start({
-      // check every 3s (default is 30s)
-      checkInterval: 3000,
-    });
+    hoodie.appCache.start();
 
     // toggle update notification
     hoodie.appCache.on('updateready', function() {

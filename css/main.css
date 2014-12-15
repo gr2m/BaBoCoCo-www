@@ -21,18 +21,8 @@ body.loading {
 }
 
 /* login */
-.login-container {
+.login-form .page-header small {
   display: none;
-  margin: 40px 0;
-}
-.login-container .page-header small {
-  display: none;
-}
-.login-container.show {
-  display: block;
-}
-.login-container.show ~ * {
-  display: none !important;
 }
 
 

@@ -13,7 +13,6 @@
     <link href="css/main.css" rel="stylesheet">
   </head>
   <body>
-    <div class="container-fluid login-container"></div>
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
@@ -475,7 +474,7 @@
       <% if (username) { %>
         <h2 class="page-title">Ohaj, <%- username %></h2>
         <p>
-          <button class="btn btn-primary">sign out</button>
+          <button class="btn btn-primary" data-action="signout">sign out</button>
         </p>
       <% } else { %>
         <div class="form">

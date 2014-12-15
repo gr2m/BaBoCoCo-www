@@ -8,7 +8,7 @@ app.Views.Search = Backbone.View.extend({
 
   initialize: function() {
     var view = this;
-    this.listenTo(this.collection, 'sync change', function() {
+    this.listenTo(this.collection, 'sync add change remove reset', function() {
       view.renderSearch(view.$('[name=search]').val());
     });
   },
